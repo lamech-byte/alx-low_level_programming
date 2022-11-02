@@ -1,50 +1,34 @@
 #include "main.h"
 
 /**
- * read_textfile - read a certain size and prints to std output
- * @filename: file to read from
- * @letters: size to read
- * Return: actual size read and printed
+ * create_file - Creates a file.
+ * @filename: A pointer to the name of the file to create.
+ * @text_content: A pointer to a string to write to the file.
+ *
+ * Return: If the function fails - -1.
+ *         Otherwise - 1.
  */
 
-ssize_t read_textfile(const char *filename, size_t letters)
+int create_file(const char *filename, char *text_content)
 {
-	int fd; /* file descriptor */
-	ssize_t n_read, n_wrote;
-	char *buffer;
+	int o, w, len = 0;
 
 	if (filename == NULL)
-		return (0);
+		return (-1);
 
-	/* open */
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		return (0);
-
-	/* malloc buffer */
-	buffer = malloc(sizeof(char) * letters);
-	if (buffer == NULL)
-		return (0);
-
-	/* read */
-	n_read = read(fd, buffer, letters);
-	if (n_read == -1)
+	if (text_content != NULL)
 	{
-		free(buffer);
-		close(fd);
-		return (0);
+		for (len = 0; text_content[len];)
+			len++;
 	}
 
-	/* write */
-	n_wrote = write(STDOUT_FILENO, buffer, n_read);
-	if (n_wrote == -1)
-	{
-		free(buffer);
-		close(fd);
-		return (0);
-	}
+	o = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
+	w = write(o, text_content, len);
 
-	close(fd);
-	return (n_read);
+	if (o == -1 || w == -1)
+		return (-1);
 
+	close(o);
+
+	return (1);
 }
