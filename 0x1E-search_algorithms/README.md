@@ -4,24 +4,6 @@ This was project on search algorithms. I implemented
 various types of search algorithms and stated the corresponding space/time
 complexities for each.
 
-## Helper Files
-
-* [listint](./listint):
-  * [create_list.c](./listint/create_list.c): C function that creates a `listint_t`
-singly linked list.
-  * [free_list.c](./listint/free_list.c): C function that frees a `listint_t`
-singly linked list.
-  * [print_list.c](./listint/print_list.c): C function that prints the contents
-of a `listint_t` singly linked list.
-
-* [skiplist](./skiplist):
-  * [create_skiplist.c](./skiplist/create_skiplist.c): C function that creates
-a `skiplist_t` singly skipped list.
-  * [free_skiplist.c](./skiplist/free_skiplist.c): C function that frees a
-`skiplist_t` singly skipped list.
-  * [print_skiplist.c](./skiplist/print_skiplist.c): C function that prints the
-contents of a `skiplist_t` singly skipped list.
-
 Function Prototypes
 
 | File                    | Prototype                                                       |
