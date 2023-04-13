@@ -1,55 +1,69 @@
 #include "search_algos.h"
-/**
- * print_array - Prints an array of integers
- *
- * @array: A pointer to the first element of the array to print
- * @start: The index of the first element to print
- * @end: The index of the last element to print
- */
-void print_arr(int *array, size_t l, size_t r)
-{
-	size_t i = 0;
-
-	printf("Searching in array: ");
-	for (i = l; i <= r; i++)
-	{
-		if (i != r)
-			printf("%d, ", array[i]);
-		else
-			printf("%d\n", array[i]);
-	}
-}
 
 /**
- * binary_search - Searches for a value in a sorted array of integers
- *                 using the Binary search algorithm
- *
- * @array: A pointer to the first element of the array to search in
- * @size: The number of elements in array
- * @value: The value to search for
- *
- * Return: The index where value is located, or -1 if it's not present
- */
+* binary_search - searches for a value in an array of
+* integers using the Binary search algorithm
+* @array: array to search the value in
+* @size: size of the array
+* @value: value to look for
+* Return: the index of the found value,
+* or -1 if not found
+*/
 
 int binary_search(int *array, size_t size, int value)
 {
-	size_t mid = 0;
-	size_t l = 0;
-	size_t r = size - 1;
-
-	if (!array)
-		return (-1);
-
-	while (l <= r)
-	{
-		print_arr(array, l, r);
-		mid = (l + r) / 2;
-		if (array[mid] == value)
-			return (mid);
-		else if (array[mid] > value)
-			r = mid - 1;
-		else
-			l = mid + 1;
-	}
+	if (!array || size == 0)
 	return (-1);
+
+	return (help_binary(array, value, 0, size - 1));
+}
+
+/**
+* help_binary - searches for a value in an array of
+* integers using recursion
+* @array: array to search the value in
+* @value: value to look for
+* @lo: index of the low bound
+* @hi: index of the high bound
+* Return: the index of the found value,
+* or -1 if not found
+*/
+
+int help_binary(int *array, int value, size_t lo, size_t hi)
+{
+	size_t mid;
+
+	array_print(array, lo, hi);
+	if (hi == lo && array[lo] != value)
+	return (-1);
+
+	mid = ((hi - lo) / 2) + lo;
+	if (array[mid] == value)
+	return (mid);
+	if (array[mid] < value)
+	return (help_binary(array, value, mid + 1, hi));
+	if (array[mid] > value)
+	return (help_binary(array, value, lo, mid - 1));
+	return (-1);
+}
+
+/**
+* array_print - prints an array
+* @array: array to print
+* @lo: index of the low bound
+* @hi: index of the high bound
+*/
+
+void array_print(int *array, size_t lo, size_t hi)
+{
+	size_t i;
+
+	printf("Searching in array: ");
+	for (i = lo; i <= hi; i++)
+	{
+	printf("%d", array[i]);
+	if (i < hi)
+	printf(", ");
+	}
+	printf("\n");
 }
