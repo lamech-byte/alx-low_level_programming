@@ -39,7 +39,6 @@ int _binary_search(int *array, size_t left, size_t right, int value)
 
 	return (-1);
 }
-
 /**
  * exponential_search - Searches for a value in a sorted array of integers
  *                      using exponential search algorithm.
@@ -55,21 +54,19 @@ int _binary_search(int *array, size_t left, size_t right, int value)
  */
 int exponential_search(int *array, size_t size, int value)
 {
-	size_t i = 1, right;
+	size_t i = 0, right;
 
-	if (array == NULL || size == 0)
+	if (array == NULL)
 		return (-1);
 
 	if (array[0] != value)
 	{
-		while (i < size && array[i] <= value)
-		{
-			printf("Value checked array[%lu] = [%d]\n", i, array[i]);
-			i = i * 2;
-		}
+		for (i = 1; i < size && array[i] <= value; i = i * 2)
+			printf("Value checked array[%ld] = [%d]\n", i, array[i]);
 	}
 
-	right = i < size ? i : size;
-	printf("Value found between indexes [%lu] and [%lu]\n", i / 2, right - 1);
-	return (_binary_search(array, i / 2, right - 1, value));
+	right = i < size ? i : size - 1;
+	printf("Value found between indexes [%ld] and [%ld]\n", i / 2, right);
+	return (_binary_search(array, i / 2, right, value));
 }
+
